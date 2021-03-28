@@ -1,0 +1,47 @@
+################################################################################################################
+# Site settings                                                                                             #
+################################################################################################################
+remote_theme: hydecorp/hydejack@v9.0.5
+
+################################################################################################################
+# General settings                                                                                             #
+################################################################################################################
+
+lang: pt-BR
+title: Magento 2 Expert Developer Study Guide
+short_title: Magento 2 Expert Developer
+description: Minhas anotações de estudo para a certificação “Adobe Certified Expert Magento Commerce Developer (AD0-E703)”.
+tagline: Minhas anotações de estudo para a certificação “Adobe Certified Professional Magento Commerce Developer (AD0-E703)”.
+keywords: [
+  'Magento',
+  'Magento 2',
+  'certificação',
+  'Adobe',
+  'e-commerce',
+  'developer'
+  ]
+  
+author:
+  # Used by `jekyll-feed`:
+  name: Ligia Salzano
+  email: ligiasalzano@gmail.com
+  # # Used by `jekyll-seo-tag`:
+  twitter: ligiasalzano
+  github: ligiasalzano
+  telegram: ligiasalzano
+  instagram: ligiasalzano
+  linkedin: ligiasalzano
+
+share-links-active:
+  twitter: true
+  facebook: true
+  linkedin: true
+  
+# Add links to the sidebar
+menu:
+  - title: 01 - Arquitetura Magento e técnicas de customização
+    url:   /arquitetura-e-customizacao
+
+no_search: false
+accent_image: none
+accent_color: rgb(25, 110, 27)
