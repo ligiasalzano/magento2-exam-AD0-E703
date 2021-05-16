@@ -5,6 +5,13 @@ permalink: /arquitetura-e-customizacao
 ---
 
 1. Descrever a arquitetura baseada em módulos da Magento
+2. Descrever a estrutura de diretórios Magento 
+3. Utilizar XML de configuração e escopo de variáveis
+4. Demonstrar como usar a injeção de dependência (Dependency Injection - DI) 
+5. Demonstar habilidade no uso de plugins
+6. Configurar `event observers` e trabalhos agendados (scheduled jobs)
+7. Utilizar o CLI 
+8. Demonstrar habilidade com o gerenciamento de cache
 {:toc}
 
 ## Descrever a arquitetura baseada em módulos do Magento
