@@ -41,6 +41,24 @@ share-links-active:
 menu:
   - title: 01 - Arquitetura Magento e técnicas de customização
     url:   /arquitetura-e-customizacao
+  - title: 02 - Processamento do fluxo de requisição
+    url:   /processamento-do-fluxo-de-requisicao
+  - title: 03 - Personalizando a Interface de Usuário (UI) do Magento
+    url:   /personalizando-a-ui
+  - title: 04 - Trabalhando com banco de dados na Magento
+    url:   /trabalhando-com-banco-de-dados
+  - title: 05 - Utilizando o modelo Entity-Attribute-Value (EAV)
+    url:   /utilizando-eav-model
+  - title: 06 - Desenvolvendo com o adminhtml
+    url:   /desenvolvendo-com-o-adminhtml
+  - title: 07 - Personalizando o catálogo
+    url:   /personalizando-o-catalogo
+  - title: 08 - Personalizando o processo de checkout
+    url:   /personalizando-o-checkout
+  - title: 09 - Operações de vendas
+    url:   /operacoes-de-vendas
+  - title: 10 - Gestão de clientes
+    url:   /gestao-de-clientes
 
 no_search: false
 accent_image: none
