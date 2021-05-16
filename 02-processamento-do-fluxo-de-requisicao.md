@@ -11,4 +11,4 @@ permalink: /processamento-do-fluxo-de-requisicao
 5. Descrever a estrutura dos `block templates`
 {:toc}
 
-## Descrever a arquitetura baseada em módulos do Magento
+## 
