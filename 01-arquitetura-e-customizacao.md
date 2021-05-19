@@ -28,3 +28,37 @@ Em seu nível mais alto, a arquitetura do produto Magento consiste no código do
 - Domain Layer: Responsável pela lógica de negócio.
 - Persistence Layer: Descreve um _resource model_ que é responsável por recuperar e modificar dados na _database_ usando CRUD.
 
+**As áreas do Magento**
+
+Há 7 áreas no Magento: ([referência](https://devdocs.magento.com/guides/v2.4/architecture/archi_perspectives/components/modules/mod_and_areas.html#magento-area-types))
+
+- `adminhtml` - A área adminhtml inclui o código necessário para o gerenciamento da loja. Refere-se ao painel administrativo (admin ou backend) do Magento. 
+- `frontend` - Refere-se à parte da loja na qual haverá a interação com o cliente (usuário final)
+- `global` (ou `base`) - Engloba todas as áreas e é usado como _fallback_ para arquivos ausentes nas áreas `frontend` e `adminhtml`
+- `crontab` - É carregada quando as _crons_ são executadas. A classe `\Magento\Framework\App\Cron` sempre carrega a área `crontab`.
+- `webapi_rest` - Esta área responde pelas chamadas _REST_ da _API_ do Magneto 2.
+- `webapi_soap` – Refere-se às chamadas _SOAP_.
+- `graphql` - Responde pelas chamadas GRAPHQL (essa área foi inserida a partir do Magento 2.3)
+
+Nem todas as áreas estão disponíveis todo o tempo. Por exemplo, a `crontab` é usada apenas ao executar tarefas cron.
+
+**Desenvolvimento de módulos**
+Para mais detalhes, descrevi sobre a criação de módulos (aqui)[https://ligiasalzano.github.io/magento2-exam-AD0-E702/arquitetura-e-customizacao#quais-s%C3%A3o-os-principais-passos-para-adicionar-um-novo-m%C3%B3dulo]
+
+### Descreva as limitações do módulo. 
+Os módulos são colocados em diretórios localizados em dois diretórios principais:
+- app/code
+- vendor
+
+Logo, todos os arquivos de um módulo ficam dentro do seu respectivo diretório, desde classes à templates e layouts.
+
+Um outro ponto é que, quando desabilitamos um módulo, ele se torna inativo. Porém as entradas e tabelas no banco de dados não são removidas.
+
+Para verificar o status de um módulo, você pode utilizar o comando:
+```
+bin/magento module:status Vendor_Module
+```
+E podemos desabilitar o módulo com `module:disable` e habilitar com `module:enable`.
+
+
+#### Como os diferentes módulos interagem uns com os outros? Quais efeitos colaterais podem surgir dessa interação?
