@@ -62,3 +62,22 @@ E podemos desabilitar o módulo com `module:disable` e habilitar com `module:ena
 
 
 #### Como os diferentes módulos interagem uns com os outros? Quais efeitos colaterais podem surgir dessa interação?
+
+O Magento segue alguns padrões que ajudam na interação entre os módulos.
+
+- PSR-4 em sua declaração, diz que os `namespaces` devem corresponder ao caminho do arquivo até a classe.
+- O arquivo `/composer.json`, na raiz da aplicação, auxilia no carregamento automático das classes
+- O uso de injeção de dependência
+- O uso de (contratos de serviços)[https://alankent.me/2014/10/31/magento-2-service-contract-patterns/] (dentro de `Vendor/Module/Api`) e de classes que representam dados dentro de `Vendor/Module/Api/Data`
+
+Conseguimos extender ou sobreescrever praticamente qualquer classe no Magento. Um problema desta interação entre módulos é que podem ocorrer quebras e efeitos colaterais. Quando as recomentações oficiais da Magento são seguidas, esses problemas podem ser evitados.
+
+## Descrever a estrutura de diretórios Magento
+
+Coloquei uma descrição sobre os diretórios do Magento (aqui)[https://ligiasalzano.github.io/magento2-exam-AD0-E702/arquitetura-e-customizacao#descrever-a-estrutura-de-diret%C3%B3rios-do-magento].
+
+### Descreva como localizar diferentes tipos de arquivos no Magento
+
+Os módulos do core do Magento são encontrados, em uma instalação típica usando o composer, dentro de `/vendor/Magento`. Em uma instalação a partir do repositório Magento Open Source, geralmente utilizada pela comunidade de contribuidores, os módulos core são encontrados em `/app/code/Magento`.
+
+
