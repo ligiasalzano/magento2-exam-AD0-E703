@@ -84,7 +84,7 @@ Os módulos do core do Magento são encontrados, em uma instalação típica usa
 Lembrando que os arquivos relacionados com o frontend serão colocados dentro do tema ou dentro do módulo em `app/code/[Vendor]/[Module]/view/`. 
 Há ainda uma subdivisão no diretório `/view`. Dentro dele, os arquivos JavaScript são colocador na pasta `/view/web` e os arquivos HTML (`.phtml`) ficam dentro do diretório `/view/templates`. Arquivos `.php` são colocados nos outros diretórios do módulo (nunca dentro de `/view`).
 
-## Uso de XML de configuração e variáveis de escopo
+## Utilizar XML de configuração e escopo de variáveis
 ### Determine como usar os arquivos de configuração. Quais arquivos de configuração correspondem a diferentes funcionalidades?
 
 O Magento divide as configurações em vários arquivos. Dessa forma, evita um arquivo muito grande (como ocorria no Magento 1).
