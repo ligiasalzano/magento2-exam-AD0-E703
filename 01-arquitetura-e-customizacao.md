@@ -43,7 +43,7 @@ Há 7 áreas no Magento: ([referência](https://devdocs.magento.com/guides/v2.4/
 Nem todas as áreas estão disponíveis todo o tempo. Por exemplo, a `crontab` é usada apenas ao executar tarefas cron.
 
 **Desenvolvimento de módulos**
-Para mais detalhes, descrevi sobre a criação de módulos (aqui)[https://ligiasalzano.github.io/magento2-exam-AD0-E702/arquitetura-e-customizacao#quais-s%C3%A3o-os-principais-passos-para-adicionar-um-novo-m%C3%B3dulo]
+Para mais detalhes, descrevi sobre a criação de módulos [aqui](https://ligiasalzano.github.io/magento2-exam-AD0-E702/arquitetura-e-customizacao#quais-s%C3%A3o-os-principais-passos-para-adicionar-um-novo-m%C3%B3dulo)
 
 ### Descreva as limitações do módulo. 
 Os módulos são colocados em diretórios localizados em dois diretórios principais:
@@ -68,16 +68,23 @@ O Magento segue alguns padrões que ajudam na interação entre os módulos.
 - PSR-4 em sua declaração, diz que os `namespaces` devem corresponder ao caminho do arquivo até a classe.
 - O arquivo `/composer.json`, na raiz da aplicação, auxilia no carregamento automático das classes
 - O uso de injeção de dependência
-- O uso de (contratos de serviços)[https://alankent.me/2014/10/31/magento-2-service-contract-patterns/] (dentro de `Vendor/Module/Api`) e de classes que representam dados dentro de `Vendor/Module/Api/Data`
+- O uso de [contratos de serviços](https://alankent.me/2014/10/31/magento-2-service-contract-patterns/) (dentro de `Vendor/Module/Api`) e de classes que representam dados dentro de `Vendor/Module/Api/Data`
 
 Conseguimos extender ou sobreescrever praticamente qualquer classe no Magento. Um problema desta interação entre módulos é que podem ocorrer quebras e efeitos colaterais. Quando as recomentações oficiais da Magento são seguidas, esses problemas podem ser evitados.
 
 ## Descrever a estrutura de diretórios Magento
 
-Coloquei uma descrição sobre os diretórios do Magento (aqui)[https://ligiasalzano.github.io/magento2-exam-AD0-E702/arquitetura-e-customizacao#descrever-a-estrutura-de-diret%C3%B3rios-do-magento].
-
-### Descreva como localizar diferentes tipos de arquivos no Magento
-
-Os módulos do core do Magento são encontrados, em uma instalação típica usando o composer, dentro de `/vendor/Magento`. Em uma instalação a partir do repositório Magento Open Source, geralmente utilizada pela comunidade de contribuidores, os módulos core são encontrados em `/app/code/Magento`.
+Os módulos podem ser encontrados dentro da pasta `vendor` ou em `app/code`. Coloquei uma descrição sobre os diretórios do Magento [aqui](https://ligiasalzano.github.io/magento2-exam-AD0-E702/arquitetura-e-customizacao#descrever-a-estrutura-de-diret%C3%B3rios-do-magento).
 
 
+### Descreva como localizar diferentes tipos de arquivos no Magento e onde encontrar arquivos JavaScript, HTML e PHP.
+
+Os módulos do core do Magento são encontrados, em uma instalação típica usando o composer, dentro de `/vendor/Magento`. Em uma instalação a partir do repositório Magento Open Source, geralmente utilizada pela comunidade de contribuidores, os módulos core são encontrados em `/app/code/Magento`. Alguns arquivos JS e CSS da instalação nativa do Magento podem ser localizados no diretório `/lib`.
+
+Lembrando que os arquivos relacionados com o frontend serão colocados dentro do tema ou dentro do módulo em `app/code/[Vendor]/[Module]/view/`. 
+Há ainda uma subdivisão no diretório `/view`. Dentro dele, os arquivos JavaScript são colocador na pasta `/view/web` e os arquivos HTML (`.phtml`) ficam dentro do diretório `/view/templates`. Arquivos `.php` são colocados nos outros diretórios do módulo (nunca dentro de `/view`).
+
+## Uso de XML de configuração e variáveis de escopo
+### Determine como usar os arquivos de configuração. Quais arquivos de configuração correspondem a diferentes funcionalidades?
+
+O Magento divide as configurações em vários arquivos. Dessa forma, evita um arquivo muito grande (como ocorria no Magento 1).
