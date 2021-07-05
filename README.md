@@ -10,7 +10,7 @@ Para passar, é necessário acertar 39 questões (64% das respostas).
 
 ## TÓPICOS
 
-1. [**ARQUITETURA MAGENTO E TÉCNICAS DE CUSTOMIZAÇÃO**](01-Arquitetura-e-customizacao.md) - 18% do conteúdo
+1. [**ARQUITETURA MAGENTO E TÉCNICAS DE CUSTOMIZAÇÃO**](01-arquitetura-e-customizacao.md) - 18% do conteúdo
    1. Descrever a arquitetura baseada em módulos Magento
    2. Descrever a estrutura de diretórios Magento 
    3. Utilizar XML de configuração e escopo de variáveis
@@ -20,20 +20,20 @@ Para passar, é necessário acertar 39 questões (64% das respostas).
    7. Utilizar o CLI 
    8. Demonstrar habilidade com o gerenciamento de cache
 
-2. [**PROCESSAMENTO DO FLUXO DE REQUISIÇÃO**](02-Processamento-do-fluxo-de-requisicao.md) - 12% do conteúdo
+2. [**PROCESSAMENTO DO FLUXO DE REQUISIÇÃO**](02-processamento-do-fluxo-de-requisicao.md) - 12% do conteúdo
     1. Utilizar os modos de deploy da Magento e conhecer as etapas da inicialização da aplicação
     2. Demonstrar habilidade para processar URLs do Magento
     3. Demonstrar habilidade para personalizar rotas de requisição
     4. Descrever o processo de inicialização do layout
     5. Descrever a estrutura dos `block templates`
 
-3. [**PERSONALIZANDO A INTERFACE DE USUÁRIO (UI) DA MAGENTO**](03-Personalizando-a-UI.md) - 10% do conteúdo
+3. [**PERSONALIZANDO A INTERFACE DE USUÁRIO (UI) DA MAGENTO**](03-personalizando-a-UI.md) - 10% do conteúdo
     1. Demonstrar habilidade para usar temas e a estrutura de `templates`
     2. Descrever como usar os blocos
     3. Demonstrar habilidade de usar layout e `XML schema`
     4. Uso do JavaScript na Magento
 
-4. [**TRABALHANDO COM BANCO DE DADOS NA MAGENTO**](04-Trabalhando-com-banco-de-dados.md) - 7% do conteúdo
+4. [**TRABALHANDO COM BANCO DE DADOS NA MAGENTO**](04-trabalhando-com-banco-de-dados.md) - 7% do conteúdo
     1. Demonstrar habilidade de usar classes relacionadas a dados
     2. Demonstrar habilidade para usar o esquema declarativo (`declarative schema`)
 
