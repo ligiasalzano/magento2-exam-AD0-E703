@@ -86,9 +86,13 @@ Há ainda uma subdivisão no diretório `/view`. Dentro dele, os arquivos JavaSc
 
 ## Utilizar XML de configuração e escopo de variáveis
 
-### XML de configuração
-O Magento divide as configurações em vários arquivos. Dessa forma, evita um arquivo muito grande (como ocorria no Magento 1).
+### Determine como usar os arquivos de configuração.
+O Magento divide as configurações em vários arquivos. Dessa forma, evita um arquivo muito grande (como ocorria no Magento 1). E cada arquivo é carregado conforme o Magento precisa.
 Estes arquivos são colocados dentro do diretório `etc` do módulo. Muitos arquivos de configurações podem ser restringidos de acordo com a `area` de interesse. Por exemplo, o `di.xml` pode ser restrito ao `frontend` ou ao `adminhtml`, basta colocá-lo em um subdiretório com o nome correspondente à área de interesse. Quando não se define uma área, ele será válido globalmente.
+
+> Dica: Busque, como referência, o arquivo de algum módulo existente no core do Magento. Você pode copiá-lo e usá-lo como base.
+
+### Quais arquivos de configuração correspondem a diferentes funcionalidades?
 
 **Alguns arquivos de configuração importantes:**
 - `module.xml`: Configuração do módulo. Nele estão o nome do módulo, as dependências em relação à outros módulos e a versão. Este é um arquivo obrigatório.
@@ -107,6 +111,8 @@ Estes arquivos são colocados dentro do diretório `etc` do módulo. Muitos arqu
 - `webapi.xml`: Configurações de acesso de APIs e rotas.
 - `widget.xml`: Configura `widgets` para serem usados em produts, páginas CMS e blocos CMS.
 
-### Determine como usar os arquivos de configuração.
+Existem muitos outros arquivos de configuração no Magento, você pode ver a [lista que existe no devdocs](https://devdocs.magento.com/guides/v2.2/config-guide/config/config-files.html).
 
-### Quais arquivos de configuração correspondem a diferentes funcionalidades?
+> Também é possível criar arquivos de configuração customizados. Dê uma olhada neste [artigo](https://www.atwix.com/magento-2/working-with-custom-configuration-files/).
+
+
