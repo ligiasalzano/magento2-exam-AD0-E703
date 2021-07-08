@@ -85,6 +85,28 @@ Lembrando que os arquivos relacionados com o frontend serão colocados dentro do
 Há ainda uma subdivisão no diretório `/view`. Dentro dele, os arquivos JavaScript são colocador na pasta `/view/web` e os arquivos HTML (`.phtml`) ficam dentro do diretório `/view/templates`. Arquivos `.php` são colocados nos outros diretórios do módulo (nunca dentro de `/view`).
 
 ## Utilizar XML de configuração e escopo de variáveis
-### Determine como usar os arquivos de configuração. Quais arquivos de configuração correspondem a diferentes funcionalidades?
 
+### XML de configuração
 O Magento divide as configurações em vários arquivos. Dessa forma, evita um arquivo muito grande (como ocorria no Magento 1).
+Estes arquivos são colocados dentro do diretório `etc` do módulo. Muitos arquivos de configurações podem ser restringidos de acordo com a `area` de interesse. Por exemplo, o `di.xml` pode ser restrito ao `frontend` ou ao `adminhtml`, basta colocá-lo em um subdiretório com o nome correspondente à área de interesse. Quando não se define uma área, ele será válido globalmente.
+
+**Alguns arquivos de configuração importantes:**
+- `module.xml`: Configuração do módulo. Nele estão o nome do módulo, as dependências em relação à outros módulos e a versão. Este é um arquivo obrigatório.
+- `acl.xml`: Inclui o módulo na árvore de permissões à recursos. Possibilita restringir o módulo à certos grupos de usuários no admin.
+- `config.xml`: Aqui são colocadas as configurações padrão do módulo. As entradas de configuração podem ser marcadas como criptografadas aqui.
+- `view.xml`: É semelhando ao `config.xml`. Aqui especificamos valores para configurações de `design`
+- `crontab.xml`: Define ações realizadas por agendamento. Há um serviço que nos ajuda nesta configuração, o [Crontab Guru](https://crontab.guru/).
+- `di.xml`: Configura as injeções de dependências. Aqui definimos plugins, `virtual types`, sobreescrita de classes, argumentos para construtores e ligamos as classes concretas às suas `interfaces`.
+- `events.xml`: Neste arquivo registramos os nossos `observers`.
+- `[area]/routes.xml`: Neste arquivo criamos as rotas para o módulo. Aqui definimos o `frontname`, que é usado na construção da url para o `controller` e o `route ID`, que é usado na nomenclatura dos `handles` de layout.
+- `adminhtml/system.xml`: Usado para configurações do módulo. Nele são especificados `tabs`, `sections`, `groups` e `fields` que são encontrados em `Stores > Configurations`.
+- `adminhtml/menu.xml`: Usamos este arquivo para criar um novo menu no painel administrativo, na barra lateral.
+- `email_templates.xml`: Especifica templates de email.
+- `indexer.xml`: Configração de índices.
+- `mview.xml`: É usado para rastrear mudanças no banco de dados para uma determinada entidade. Veja mais [aqui na documentação](https://devdocs.magento.com/guides/v2.3/extension-dev-guide/indexing.html#m2devgde-mview).
+- `webapi.xml`: Configurações de acesso de APIs e rotas.
+- `widget.xml`: Configura `widgets` para serem usados em produts, páginas CMS e blocos CMS.
+
+### Determine como usar os arquivos de configuração.
+
+### Quais arquivos de configuração correspondem a diferentes funcionalidades?
