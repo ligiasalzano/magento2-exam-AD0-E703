@@ -115,4 +115,4 @@ Existem muitos outros arquivos de configuração no Magento, você pode ver a [l
 
 > Também é possível criar arquivos de configuração customizados. Dê uma olhada neste [artigo](https://www.atwix.com/magento-2/working-with-custom-configuration-files/).
 
-
+## Demonstrar como usar a injeção de dependência (Dependency Injection - DI)
