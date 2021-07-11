@@ -221,3 +221,19 @@ Também é possível injetar sua classe em outro objeto através de uma entrada 
 </type>
 ```
 Temos mais detalhes sobre isso [aqui](https://magento.stackexchange.com/a/240269) e [aqui](https://inchoo.net/magento-2/overriding-classes-magento-2/).
+
+
+## Demonstar habilidade no uso de plugins
+
+- Existem 3 tipos de plugins: _before_, _after_ e _around_. São úteis para modificar a entrada, saída ou execução de um método existente (cuidado com os plugins do tipo _around_).
+- Plugins funcionam apenas em métodos públicos (não em privados ou protegidos)
+- Plugins não funcionam em classes virtuais e finais, métodos finais, estáticos e não públicos, construtores e objetos instanciados antes da inicialização do `Magento\Framework\Interception`.
+- Eles são configurados no `di.xml`
+- Plugins podem ser usados em interfaces, classes abstratas ou classes pai. Os métodos de plugin serão chamados para qualquer implementação dessas abstrações.
+
+
+
+
+## Configurar event observers e trabalhos agendados (`scheduled jobs`)
+## Utilizar o CLI
+## Demonstrar habilidade com o gerenciamento de cache
