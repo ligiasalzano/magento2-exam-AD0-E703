@@ -116,3 +116,108 @@ Existem muitos outros arquivos de configuração no Magento, você pode ver a [l
 > Também é possível criar arquivos de configuração customizados. Dê uma olhada neste [artigo](https://www.atwix.com/magento-2/working-with-custom-configuration-files/).
 
 ## Demonstrar como usar a injeção de dependência (Dependency Injection - DI)
+
+Se uma classe precisa de outras classes para funcionar, usamos a injeção de dependências para injetar as classes que precisamos na classe que estamos construíndo.
+Leia mais sobre injeção de dependências [aqui](https://alankent.me/2014/06/07/magento-2-dependency-injection-the-m2-way-to-replace-api-implementations/).
+
+### Descreva a arquitetura e abordagem de injeção de dependência do Magento.
+
+A injeção de dependência é um padrão de design que permite declarar dependências de objetos no Magento 2. A utilização da DI permite desenvolver um código mais estrutural e independente tornando o processo de codificação mais conveniente.
+A injeção de dependência é feita no Magento através de um construtor (função `__construct()`), no qual todas as dependências são especificadas como argumentos.
+
+**ObjectManager**
+O `ObjectManager` é a unidade interna de armazenamento de objetos do Magento e raramente deve ser acessada diretamente. Ele torna possível a implementação do princípio de composição sobre herança.
+Na [documentação do Magento](https://devdocs.magento.com/guides/v2.4/extension-dev-guide/depend-inj.html#object-manager), a definição de ObjectManager é: "uma classe de serviço do Magento que instancia objetos no início do processo de _bootstrapping_".
+
+> O Magento proíbe o uso direto do ObjectManager no seu código porque oculta as dependências reais de uma classe. Veja as [regras de uso](https://devdocs.magento.com/guides/v2.4/extension-dev-guide/object-manager.html#usage-rules).
+
+Responsabilidades do `ObjectManager`:
+- Criação de objetos _factories_ e _proxies_
+- Instanciar automaticamente parâmetros em construtores de classe
+- Gerenciar dependências instanciando a classe de preferência quando um construtor solicita sua interface
+- Implementar o padrão _singleton_ retornando a mesma instância compartilhada de uma classe quando solicitado
+
+**[Proxies](https://devdocs.magento.com/guides/v2.2/extension-dev-guide/proxies.html)**
+As _proxies_ são usadas para a criação de objetos que demandam mais tempo para carregar. Nesses casos, uma classe _proxy_ lento carrega a classe. 
+A _proxy_ é especificada no `di.xml` em uma classe como `\Magento\Catalog\Model\Product\Proxy`. 
+> _Proxies_ não devem ser especificadas no método construtor.
+
+**Factories**
+Para objetos que precisam se criados todas as vezes que são usados, existem as _factories_. Para especificar uma _factory_, inclua a palavra _Factory_ no final da classe ou interface. Exemplo: `\Magento\Catalog\Api\Data\ProductInterfaceFactory`.
+Caso você precise, você pode criar a _factory_. Veja como exemplo a classe: `: vendor/magento/module-paypal/Model/IpnFactory.php`.
+
+**Como os objetos são identificados no Magento?**
+Como a injeção de dependência acontece automaticamente no construtor, o Magento deve lidar com a criação de classes. Como tal, a criação de classe acontece no momento da injeção ou com uma _factory_.
+
+**Por que é importante ter um processo centralizado de criação de objetos?**
+Ter um processo centralizado para criar objetos facilita muito o teste. Ele também fornece uma interface simples para substituir objetos e modificar os existentes.
+
+### Identifique como usar arquivos de configuração DI para personalizar o Magento.
+
+Para fazer essas personalizações no Magento 2, você precisa usar o arquivo de configuração `di.xml`. Que pode ser global ou específico de uma área.
+
+**Plugins**
+Os plugins nos dão três possibilidades para manipular funções públicas:
+- podemos envolver as funções de outra classe (`around`),
+- adicionar um método `before` para modificar os argumentos de entrada ou
+- adicionar um método `after` para modificar a saída.
+
+**Preferences**
+São usadas para substituir classes inteiras e, também, para ligar uma classe concreta à sua interface.
+
+**Como substituir uma classe nativa?**
+> Se houver a possibilidade de usar _plugin_, evite sobreescrever uma classe. Isso pode gerar conflitos.
+
+Para substituir uma classe nativa, use uma entrada `<preference />` para especificar o nome da classe existente (a barra invertida anterior \ é opcional) e a classe a ser substituída.
+
+```xml
+<config>
+    <preference for="Magento\Catalog\Api\Data\ProductInterface" type="YourVendor\Catalog\Model\Product" />
+</config>
+```
+
+**Como injetar uma classe em outro objeto**
+Use uma entrada `<type/>` com name `providers` (`<argument name="providers" xsi:type="object">\Path\To\Your\Class</argument>`) dentro do nó `<arguments/>`.
+
+Exemplo: `Magento\Sales\Model\ResourceModel\Provider\UpdatedIdListProvider` é a nossa classe que queremos injetar e `vendor/magento/module-sales/Model/ResourceModel/Provider/NotSyncedDataProvider.php`é o objeto de classe no qual vamos injetar a nossa classe.
+
+```xml
+<type name="Magento\Sales\Model\ResourceModel\Provider\NotSyncedDataProvider">
+ <arguments>
+   <argument name="providers" xsi:type="array">
+       <item name="default" xsi:type="string">Magento\Sales\Model\ResourceModel\Provider\UpdatedIdListProvider</item>
+   </argument>
+ </arguments>
+</type>
+```
+
+**[Virtual Type](https://alanstorm.com/magento_2_object_manager_virtual_types/)**
+_Virtual type_ é usado para reduzir a redundância de classes PHP. Ele permite criar uma instância de uma classe existênte modificando os argumentos do construtor.
+Neste [tópico](https://devdocs.magento.com/guides/v2.3/extension-dev-guide/build/di-xml-file.html#type-configuration) do devdocs, a configuração dos _virtual types_ é explicada.
+
+```xml
+<virtualType name="pdfConfigDataStorage" type="Magento\Framework\Config\Data">
+    <arguments>
+        <argument name="reader" xsi:type="object">Magento\Sales\Model\Order\Pdf\Config\Reader</argument>
+        <argument name="cacheId" xsi:type="string">sales_pdf_config</argument>
+    </arguments>
+</virtualType>
+<type name="Magento\Sales\Model\Order\Pdf\Config">
+    <arguments>
+        <argument name="dataStorage" xsi:type="object">pdfConfigDataStorage</argument>
+    </arguments>
+</type>
+```
+
+**[Argumentos do construtor](https://devdocs.magento.com/guides/v2.3/extension-dev-guide/build/di-xml-file.html#constructor-arguments)**
+É possível modificar quais objetos são injetados em classes específicas, direcionando o nome do argumento para associá-lo à nova classe. É possível injetar uma classe em qualquer outro construtor de classes no `di.xml`
+
+Também é possível injetar sua classe em outro objeto através de uma entrada `<type />`, dessa forma:
+```xml
+<type name="My\Custom\ClassName">
+    <arguments>
+        <argument name="object" xsi:type="object">MyExtension\PerhapsNotInstalled\ClassThatMightNotExist</argument>
+    </arguments>
+</type>
+```
+Temos mais detalhes sobre isso [aqui](https://magento.stackexchange.com/a/240269) e [aqui](https://inchoo.net/magento-2/overriding-classes-magento-2/).
