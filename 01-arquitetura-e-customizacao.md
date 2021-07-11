@@ -232,6 +232,36 @@ Temos mais detalhes sobre isso [aqui](https://magento.stackexchange.com/a/240269
 - Plugins podem ser usados em interfaces, classes abstratas ou classes pai. Os métodos de plugin serão chamados para qualquer implementação dessas abstrações.
 
 
+### Demonstrar como projetar soluções complexas usando o ciclo de vida do plug-in
+
+Quando criamos um plugin, o Magento gera uma classe que vai "envelopar" o algo do plugin. Por exemplo, se você cria um plugin para a classe `\Magento\Catalog\Model\Product`, o Magento gera automaticamente a classe `\Magento\Catalog\Model\Product\Interceptor`. Todos os métodos dentro da classe alvo serão representados no _interceptor_. 
+Então o Magento localiza e executa os plugins com a classe ` vendor/magento/framework/Interception/Interceptor.php`.
+
+Na [documentação do Magento](https://devdocs.magento.com/guides/v2.4/extension-dev-guide/plugins.html) temos mais detalhes sobre os plugins.
+
+**Plugins Before**
+Servem para modificar os argumentos de _input_ de um método. O plugin `before` recebe o objeto (que é a classe alvo do plugin) e os argumentos que o método original recebe. E retorna um array com os atributos do método original, que serão enviados para o próximo plugin ou o próprio método alvo.
+
+**Plugins After**
+Estes modificam o retorno do método alvo. Ele recebe como argumento, o objeto da classe alvo, o resultado do método alvo do plugin e os argumentos do método observado.
+
+**Plugins Around**
+Os plugins do tipo `around` possuem controle total sobre o _input_ e _output_ de uma função. O método original é passado como um _callback_ e, por padrão, é nomeado `$proceed`. 
+A recomendação do Magento é evitar o uso desse tipo de plugin. O motivo é porque, facilmente, pode-se alterar acidentalmente as funções principais do sistema ao omitir uma chamada para o `$proceed`. Ele também torna o processo de _debugging_ mais complicado.
+
+
+### Como múltiplos plugins interagem e como sua ordem de execução pode ser controlada?
+No arquivo `di.xml`, registramos os plugins. E lá ainda podemos definir a prioridade deles diante outros plugins, com a propriedade `sortOrder`. Existe, ainda, a opção de desabilitar um plugin de outro módulo, usando a propriedade booleana `disabled`.
+
+```xml
+<type name="Magento\Checkout\Block\Checkout\LayoutProcessor">
+    <plugin name="ProcessPaymentConfiguration" disabled="true"/>
+</type>
+```
+
+
+Como você depura um plug-in se ele não funcionar?
+Identifique os pontos fortes e fracos dos plugins. Quais são as limitações na utilização de plugins para personalização? Em quais casos os plugins devem ser evitados?
 
 
 ## Configurar event observers e trabalhos agendados (`scheduled jobs`)
