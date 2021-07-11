@@ -260,10 +260,48 @@ No arquivo `di.xml`, registramos os plugins. E lá ainda podemos definir a prior
 ```
 
 
-Como você depura um plug-in se ele não funcionar?
-Identifique os pontos fortes e fracos dos plugins. Quais são as limitações na utilização de plugins para personalização? Em quais casos os plugins devem ser evitados?
+### Como você depura um plug-in se ele não funcionar?
+1. Primeiro, desabilite o puglin e verifique se isso remove o bug
+2. Verifique se o `di.xml` está correto. Busque se há erros de sintaxe.
+3. Confira se o plugin não está marcado, em algum lugar, como desabilitado.
+4. A classe algo está correta? E a classe do plugin?
+5. O plugin foi registrado em um nó `<plugin type="...">`?
+6. A classe que você está tentando alterar é do tipo `final`?
+7. O método alvo é público? (Verifique as [limitações de plugins](https://devdocs.magento.com/guides/v2.2/extension-dev-guide/plugins.html#limitations).)
+8. O nome fa função do seu plugin está escrito corretamente? Exemplo: `beforeMethodName`, `afterMethodName` ou `aroundMethodName`.
+9. A classe que você está tentando alterar foi criada segundo os padrões do Magento? Usa DI e `ObjectManager`?
 
+> Existem módulos que utilizam em seu `core`, classes que não seguem os padrões de desenvolvimento do Magento.
+
+### Identifique os pontos fortes e fracos dos plugins. 
+Pontos fortes: 
+- Facilita a modificação de código existente (como o `core` do Magento)
+- São usados para seguir o princípio de responsabilidade única ao separar cada funcionalizada em sua própria área.
+
+Ponto fraco:
+- Desenvolvedores podem prejudicar funcionalidades importantes ao usá-los sem conhecer as consequências das alterações, principalmente em plugins do tipo `around`.
+
+### Quais são as limitações na utilização de plugins para personalização? 
+- Plugins só funcionam em métodos públicos
+- Plugins não funcionam em classes ou métodos finais.
+- Não podem ser usados em `Virtual Types`
+
+Leia mais [aqui](https://devdocs.magento.com/guides/v2.3/extension-dev-guide/plugins.html#limitations).
+
+### Em quais casos os plugins devem ser evitados?
+Os plugins devem ser evitados em situações em que o uso de um `observer` funcione. Os eventos funcionam bem quando o fluxo de dados não precisa ser modificado.
 
 ## Configurar event observers e trabalhos agendados (`scheduled jobs`)
+
+
+
+Demonstrar como configurar os observers. Como você faz seu observer ser somente ativado no frontend ou
+backend?
+Demonstrar como configurar um trabalho agendado. Quais parâmetros são usados na configuração, e como esta
+configuração pode interagir com a configuração do servidor?
+Identificar a função e o uso apropriado dos eventos disponíveis automaticamente, como por exemplo
+*_load_after, etc. 
+
+
 ## Utilizar o CLI
 ## Demonstrar habilidade com o gerenciamento de cache
