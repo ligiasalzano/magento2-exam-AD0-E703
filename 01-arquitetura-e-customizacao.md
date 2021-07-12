@@ -365,6 +365,11 @@ Alguns eventos disponíveis:
 
 > [Lista de todos os eventos disparados](https://cyrillschumacher.com/magento2-list-of-all-dispatched-events/)
 
+**Como disparar um evento**
+Primeiro, injete uma instânica da classe `\Magento\Framework\Event\ManagerInterface` no construtor. Então, você poderá disparar o evento, no momento desejado, desta forma:
+```php
+$this->eventManager->dispatch('event_name_goes_here', ['parameter' => 'array']);
+```
 
 ## Utilizar o CLI
 ## Demonstrar habilidade com o gerenciamento de cache
