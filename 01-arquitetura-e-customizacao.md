@@ -293,14 +293,77 @@ Os plugins devem ser evitados em situações em que o uso de um `observer` funci
 
 ## Configurar event observers e trabalhos agendados (`scheduled jobs`)
 
+ - Os `observers` observam eventos que são disparados quando ocorre alguma ação. 
+ - Uma característica em comum entre `observers` e `scheduled jobs` é que ambos não devem modificar dados que passamm por eles ([Magento guidelines](https://devdocs.magento.com/guides/v2.3/coding-standards/technical-guidelines.html#14-events)).
+ 
+ > Se você precisa modificar dados em um método, é melhor usar os plugins `after` ou `before`.
+
+### Demonstrar como configurar os observers. 
+**Como você faz seu observer ser somente ativado no frontend ou backend?**
+
+Um `observer` é registrado no arquivo `events.xml`, que fica localizado dentro do diretório `/etc`. Caso o arquivo `events.xml` seja colocado em um subdiretório nomeado `frontend` ou `backend` o `observer` ficará restrito à área correspondente.
+
+Após isso, é criada uma classe dentro do diretório `Observers` (este nome é usado como convenção). A classe do `observer` deve implementar a interface: `\Magento\Framework\Event\ObserverInterface`.
+
+> No DevDocs temos este [artigo](https://devdocs.magento.com/guides/v2.3/ext-best-practices/extension-coding/observers-bp.html) com as melhores práticas no uso dos `observers`.
+
+### Demonstrar como configurar um trabalho agendado. 
+
+Para configurar um trabalho agendado, você precisa configurá-lo no arquivo `crontab.xml`. Este arquivo fica diretamente dentro da pasta `/etc` (ele não pode ser colocado em subdiretórios).
+
+```xml
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <group id="default">
+        <job name="custom_cronjob" instance="Magento\SampleMinimal\Cron\Test" method="execute">
+            <schedule>* * * * *</schedule>
+        </job>
+    </group>
+</config>
+```
+
+O nó `group` define à qual grupo uma dada rotina pertence. Isto serve para agrupar funcionalidades em grupos lógicos. Para a maior parte dos trabalhos agendados, usamos o grupo `default`.
+Configurações de grupos são feitas no aquivo `cron_groups.xml`.
+
+A configuração do trabalho em si é feita no nó `job`. Aqui definimos um nome único para o trabalho, a classe que o representa (`instance`) e o nome do método que será executado. Dentro do nó `job` existe o nó `schedule` que é onde configuramos a rotina em que aquele trabalho será executado (se será a cada hora, ou todo dia 15, ou a cada 6 meses...).
+O site [crontab.guru](https://crontab.guru/) fornece uma ferramenta para auxiliar na criação desta rotina.
+
+**Quais parâmetros são usados na configuração, e como esta configuração pode interagir com a configuração do servidor?**
+
+As variáveis de ambiente do sistema podem ser usadas para alterar as informações de configuração da loja. 
+[Ver sobre aqui](https://devdocs.magento.com/guides/v2.4/config-guide/prod/config-reference-var-name.html)
 
 
-Demonstrar como configurar os observers. Como você faz seu observer ser somente ativado no frontend ou
-backend?
-Demonstrar como configurar um trabalho agendado. Quais parâmetros são usados na configuração, e como esta
-configuração pode interagir com a configuração do servidor?
-Identificar a função e o uso apropriado dos eventos disponíveis automaticamente, como por exemplo
-*_load_after, etc. 
+### Identificar a função e o uso apropriado dos eventos disponíveis automaticamente
+
+O Magento possui uma série de eventos já definidos, que cobrem diversas funcionalidades. 
+O carregamento de dados é uma das ações mais comuns de se usar eventos e `observers`. 
+
+Alguns eventos disponíveis:
+
+**Models:**
+> Acionados em `\Magento\Framework\Model\AbstractModel`.
+- [$eventPrefix]_load_before
+- [$eventPrefix]_load_after
+- [$eventPrefix]_save_before
+- [$eventPrefix]_save_after
+- [$eventPrefix]_save_commit_after
+- [$eventPrefix]_delete_before
+- [$eventPrefix]_delete_after
+- [$eventPrefix]_delete_commit_after
+
+> O prefixo do evento é definido no `model`, veja este como exemplo: `vendor/magento/module-catalog/Model/Product.php`
+
+**Controllers:**
+
+- controller_action_predispatch_[ROUTE_NAME]
+- controller_action_predispatch_[FULL_ACTION_NAME]
+- controller_action_postdispatch_[ROUTE_NAME]
+- controller_action_postdispatch_[FULL_ACTION_NAME]
+- controller_action_layout_render_before_[FULL_ACTION_NAME]
+
+
+> [Lista de todos os eventos disparados](https://cyrillschumacher.com/magento2-list-of-all-dispatched-events/)
 
 
 ## Utilizar o CLI
