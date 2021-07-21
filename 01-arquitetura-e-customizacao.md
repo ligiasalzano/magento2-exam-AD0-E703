@@ -372,4 +372,44 @@ $this->eventManager->dispatch('event_name_goes_here', ['parameter' => 'array']);
 ```
 
 ## Utilizar o CLI
+
+### Descreva o uso dos comandos `bin/magento` no ciclo de desenvolvimento
+
+**Quais comandos estão disponíveis?**
+
+Podemos ver a lista de comandos disponíveis utilizando o comando `bin/magento list` ou apenas `bin/magento`. Uma outra dica é que, se usar `--help` no final de qualquer comando, é mostrado uma ajuda sobre ele e suas opções.
+
+Veja como criar novos comandos [aqui](https://devdocs.magento.com/guides/v2.4/extension-dev-guide/cli-cmds/cli-howto.html).
+
+Alguns comandos importantes:
+- `cache:status`: Lista os tipos de cache e seus status (se está habilitado ou desabilitado).
+- `cache:flush` e `cache:clean`: Destrói ou libera o cache. Diferenças entre estes serão explicadas na próxima seção.
+- `cache:flush`: Libera ou destrói o cache.
+- `deploy:mode:show`: Mostra o atual modo de deploy: `default`, `production` ou `develeper`.
+- `dev:query-log:enable`: Habilita o log das `queries`.
+- `indexer:info`: Detalhes sobre os índices.
+- `indexer:reindex`: Inicia o processo de `reindex`.
+- `module:enable`: Usado para habilitar um módulo.
+- `module:status`: Mostra se um módulo está habilitado ou não.
+- `setup:upgrade`: Sincroniza alterações com o banco de dados (tabelas criadas ou removidas, versões de módulos alteradas, etc).
+
+**Como os comandos são usados no ciclo de desenvolvimento?**
+
+
+
+### Demonstrar a capacidade de criar um processo de deploy. 
+**Como a aplicação se comporta nos diferentes modos de deploy, e como esses comportamentos afetam a abordagem do deploy para o código PHP, assets frontend, etc.?**
+
 ## Demonstrar habilidade com o gerenciamento de cache
+
+### Descrever os tipos de cache e as ferramentas usadas para gerenciar o cache. 
+Como você adiciona um conteúdo
+dinâmico em páginas servidas com o full page cache?
+
+### Descrever como operar a limpeza de cache.
+Como você poderia limpar o cache? Em qual situação você limpa o
+cache/descarrega o armazenamento do cache?
+
+### Descreva como limpar o cache programaticamente.
+Quais mecanismos estão disponíveis para limpar todo ou parte
+do cache?
