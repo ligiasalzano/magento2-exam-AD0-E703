@@ -434,6 +434,8 @@ A aplicação Magento comporta-se diferente dependendo do modo de deploy que est
 - Os arquivos estáticos devem ser pré-compilados, pois nenhuma compilação acontecerá instantaneamente.
 - Erros são apenas logados na pasta `var/log` e não são mostrados para o usuário
 
+Para mais informações sobre os modos do Magento, tem [esta referência](https://devdocs.magento.com/guides/v2.4/config-guide/bootstrap/magento-modes.html) no DevDocs.
+
 ## Demonstrar habilidade com o gerenciamento de cache
 
 ### Descrever os tipos de cache e as ferramentas usadas para gerenciar o cache. 
