@@ -392,10 +392,14 @@ Alguns comandos importantes:
 - `module:enable`: Usado para habilitar um módulo.
 - `module:status`: Mostra se um módulo está habilitado ou não.
 - `setup:upgrade`: Sincroniza alterações com o banco de dados (tabelas criadas ou removidas, versões de módulos alteradas, etc).
+- `setup:di:compile`: Compila classes e injeção de dependências.
 
 **Como os comandos são usados no ciclo de desenvolvimento?**
 
+Os comandos CLI fornecem um ponto de entrada seguro para a realização de operações que podem não ser seguras para serem executadas no painel de administração do Magento. O acesso SSH deve ser uma maneira segura de examinar o status de autorização de um usuário.
 
+O Magento provê comandos para fazer deploy de conteúdos estáticos, atualizar o banco de dados, compilar as classes com injeção de dependências, habilitar/desabilitar módulos etc.
+Alguns comandos são frequentemente utilizados por serem mais ágeis do que utilizar a interface do painel administrativo (como limpar o cache, por exemplo).
 
 ### Demonstrar a capacidade de criar um processo de deploy. 
 **Como a aplicação se comporta nos diferentes modos de deploy, e como esses comportamentos afetam a abordagem do deploy para o código PHP, assets frontend, etc.?**
