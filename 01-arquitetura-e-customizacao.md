@@ -402,7 +402,37 @@ O Magento provê comandos para fazer deploy de conteúdos estáticos, atualizar 
 Alguns comandos são frequentemente utilizados por serem mais ágeis do que utilizar a interface do painel administrativo (como limpar o cache, por exemplo).
 
 ### Demonstrar a capacidade de criar um processo de deploy. 
+
+O processo de deploy possui algumas etapas:
+- O modo de manutenção é habilitado
+- Copia os arquivos para o destino de implantação
+- Habilitar módulos / aplicar configuração de implantação
+- Executa a compilação de dependências
+- Constrói ativos estáticos
+- Atualiza o banco de dados
+- O modo de manutenção é desabilitado
+
 **Como a aplicação se comporta nos diferentes modos de deploy, e como esses comportamentos afetam a abordagem do deploy para o código PHP, assets frontend, etc.?**
+
+A aplicação Magento comporta-se diferente dependendo do modo de deploy que está ativo, conforme segue:
+
+`Default`:
+- Híbrido entre os modos `production` e `developer`
+- Links simbólicos são estabelecidos na pasta `pub/static`
+- `Exceptions` não são mostradas para o usuário, apenas logadas na pasta `var/log`
+- Arquivos estáticos são gerados em tempo real e são vinculados simbolicamente dentro do diretório `var/view_preprocessed`
+
+`Developer`:
+- Baixa performance
+- Links simbólicos são estabelecidos na pasta `pub/static`
+- Os erros são mostrados ao usuário e o registro é detalhado.
+- Magento constrói código automaticamente para plug-ins (interceptores), fábricas, etc. como faz nos outros modos
+- Arquivos estáticos são gerados em tempo real e são vinculados simbolicamente dentro do diretório `var/view_preprocessed`
+
+`Production`:
+- Melhor performance
+- Os arquivos estáticos devem ser pré-compilados, pois nenhuma compilação acontecerá instantaneamente.
+- Erros são apenas logados na pasta `var/log` e não são mostrados para o usuário
 
 ## Demonstrar habilidade com o gerenciamento de cache
 
