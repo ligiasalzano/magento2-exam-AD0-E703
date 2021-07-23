@@ -439,13 +439,65 @@ Para mais informações sobre os modos do Magento, tem [esta referência](https:
 ## Demonstrar habilidade com o gerenciamento de cache
 
 ### Descrever os tipos de cache e as ferramentas usadas para gerenciar o cache. 
-Como você adiciona um conteúdo
-dinâmico em páginas servidas com o full page cache?
+
+O Magento possui vários tipos de cache. Para ver uma lista de todos (e seus respectivos status), utilize o comando `bin/magento cache:status`.
+
+Existem dois métodos para _caching_:
+- Client-side (browser)
+- Server-side
+
+Exemplo de páginas não chacheadas: comparação de produtos, carrinho, checkout etc. Mais detalhes, veja [aqui](https://devdocs.magento.com/guides/v2.4/frontend-dev-guide/cache_for_frontdevs.html#cache-over-cacheable).
+
+O Magento separa conteúdos [públicos](https://devdocs.magento.com/guides/v2.4/extension-dev-guide/cache/page-caching/public-content.html) (cache armazenado em server-side e compartilhado entre usuários) e [privados](https://devdocs.magento.com/guides/v2.4/extension-dev-guide/cache/page-caching/private-content.html) (cache armazenado em client-side e exclusívos do usuário).
+
+Configurações de cache são armazenadas em `/etc/cache.xml.`.
+
+Podemos limpar caches específicos adicionando o id do tipo de cache ao comando `cache:clean` ou `cache:flush`: 
+`bin/magento cache:flush config layout`.
+
+
+**Alguns tipos importantes de cache**
+
+- `config`: Configurações provenientes de arquivos XML e entradas da tabela `core_config_data` (`/etc/adminhtml/system.xml`).
+- `layout`: Cache das configurações de layout XML (localizadas nos diretórios `layout`) e `ui_component` XML.
+- `block_html`: Output do método `toHtml()` dos blocos.
+- `full_page`: Full page cache (FPC) - armazena o cache do HTML da loja. Pode ser armazenado em arquivos (padrão), banco de dados ou Redis (mais rápido).
+- `config_webservice`: Armazena configurações as APIs REST e SOAP.
+- `collections`: Armazena resultados de consultas ao banco de dados.
+
+Você pode encontrar mais tipos de cache [aqui](https://devdocs.magento.com/guides/v2.4/config-guide/cli/config-cli-subcommands-cache.html).
+
+
+**Como você adiciona um conteúdo dinâmico em páginas servidas com o full page cache?**
+
+O `full page caching` de uma página pode ser desabilitado utilizando a propriedade `cacheable="false"` em qualquer bloco do layout no XML. 
+
+```xml
+<block class="Magento\Customer\Block\Form\Edit" name="customer_edit" template="Magento_Customer::form/edit.phtml" cacheable="false">
+    <container name="form.additional.info" as="form_additional_info"/>
+</block>
+```
+
+> Se qualquer bloco de uma página estiver marcado para não ser cacheado, a página inteira não será. Por isso não configure isso em páginas de conteúdo (CMS, catálogo, produtos etc)
+
 
 ### Descrever como operar a limpeza de cache.
-Como você poderia limpar o cache? Em qual situação você limpa o
-cache/descarrega o armazenamento do cache?
+
+**Como você poderia limpar o cache?**
+- `bin/magento cache:clean`
+- `bin/magento cache:flush`
+
+**Em qual situação você limpa/libera o armazenamento do cache?**
+É recomendado pela Magento primeiro limpar o cache (`cache:clean`), assim não afeta outras aplicações que estejam utilizando o mesmo cache armazenado.
+Se não surtir efeito,então recomenda-se liberar todo o cachê (`chache:flush`).
 
 ### Descreva como limpar o cache programaticamente.
-Quais mecanismos estão disponíveis para limpar todo ou parte
-do cache?
+
+Para limpar o cache automaticamente, podemos utilizar o método `\Magento\Framework\App\CacheInterface::remove()`.
+
+**Quais mecanismos estão disponíveis para limpar todo ou parte do cache?**
+
+1. Existe o evento `clean_cache_by_tags` que é disparado com um parâmetro do tipo `object`. Ele recebe o objeto do qual você quer limpar o cache.
+2. Usando a classe `\Magento\Framework\App\CacheInterface`.
+3. Usando a CLI: `cache:clean` ou `cache:flush`
+4. Manualmente, apagando os conteúdos do diretório `var/cache`.
