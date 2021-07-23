@@ -61,7 +61,7 @@ bin/magento module:status Vendor_Module
 E podemos desabilitar o módulo com `module:disable` e habilitar com `module:enable`.
 
 
-#### Como os diferentes módulos interagem uns com os outros? Quais efeitos colaterais podem surgir dessa interação?
+**Como os diferentes módulos interagem uns com os outros? Quais efeitos colaterais podem surgir dessa interação?**
 
 O Magento segue alguns padrões que ajudam na interação entre os módulos.
 
