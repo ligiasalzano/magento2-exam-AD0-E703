@@ -41,5 +41,13 @@ Discutimos isso [aqui](https://ligiasalzano.github.io/magento2-exam-AD0-E703/arq
 - `bin/magento maintenance:disable`
 
 
-### Descrever as responsabilidades do _front controller_. 
+### Descrever as responsabilidades do _front controller_.
+O _front controller_ implementa a interface `\Magento\Framework\App\FrontControllerInterface` e é responsável por executar a lógica de negócios e retornar o resultado dela. Este resultado pode ser um simples layout HTML ou algo mais complexo, como um objeto para edição.
+
 **Em quais situações o controller frontal é envolvido na execução e como ele é usado nas customizações do escopo?**
+O `FrontController` é envolvido em todas as requisições que não sejam API. Ele é o ponto de entrada para o processamento do fluxo de requisição.
+Ele é usado para transformar o _input_ de uma url e seus parêmetros em uma resposta HTML.
+Não é usado em API ou no _console_.
+
+
+
