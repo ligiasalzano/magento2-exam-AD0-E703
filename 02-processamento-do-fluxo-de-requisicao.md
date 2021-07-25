@@ -29,13 +29,17 @@ permalink: /processamento-do-fluxo-de-requisicao
 11. Voltamos para  a classe `Http`.
 
 **Como você projetaria uma personalização que deveria agir em cada requisição e capturar dados de saída, independentemente do controller?**
-
+Seria uma boa oportunidade para usar os `observers`. Nesse caso, para o evento `controller_action_postdispatch`.
 
 
 ### Descrever como usar os modos Magento. 
-**Entender os prós e contras usando o modo desenvolvedor/produção?**
-**Como você usa o modo default?**
+**Entender os prós e contras usando o modo desenvolvedor/produção? Como você usa o modo default?**
+Discutimos isso [aqui](https://ligiasalzano.github.io/magento2-exam-AD0-E703/arquitetura-e-customizacao#demonstrar-a-capacidade-de-criar-um-processo-de-deploy) e [aqui](https://ligiasalzano.github.io/magento2-exam-AD0-E702/processamento-do-fluxo-de-requisicao#descrever-como-usar-os-modos-magento).
+
 **Como você ativa/desativa o modo de manutenção?**
+- `bin/magento maintenance:enable`
+- `bin/magento maintenance:disable`
+
 
 ### Descrever as responsabilidades do _front controller_. 
 **Em quais situações o controller frontal é envolvido na execução e como ele é usado nas customizações do escopo?**
