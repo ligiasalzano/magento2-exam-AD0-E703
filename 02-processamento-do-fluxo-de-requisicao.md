@@ -83,17 +83,38 @@ Há um exemplo passo a passo [aqui](https://devdocs.magento.com/guides/v2.4/exte
 
 ### Descrever como é o processo de reescrita e sua função na criação de URL amigáveis.
 
+**Como as URLs amigáveis são definidas, e como elas são customizadas?**
 As URLs amigáves são apelidos para as URLs padrão do Magento. Ao invés de mostrar a url `htpps://loja.com/catalog/product/view/id/54`, o link para este produto será: `htpps://loja.com/meu-produto`. Essa reescrita pode ser feita automaticamente, se configurado.
 O Magento usa a tabela `url_rewrite` para armazenar e mapear as URLs no banco de dados.
 - `request_path`: "minha-url-amigavel"
 - `target_path`: "catalog/product/view/id/54"
 
-**Como as URLs amigáveis são definidas, e como elas são customizadas?**
 As URLs amigáveis vem do campo `url_key`, este atributo existe no cadastro de produtos, categorias e páginas cms.
 
 
 ### Descrever como funcionam as ações e resultados dos controllers. 
-**Como os controladores interagem uns com os outros? Como os diferentes tipos de resposta são gerados?**
+
+- Os `controllers` de ação implementam o a interface `\Magento\Framework\App\ActionInterface` e estendem a classe `\Magento\Framework\App\Action\Action` em algum ponto.
+- Cada `controller` tem apenas uma única `action`.
+- O método `execute` deve retornar `\Magento\Framework\Controller\ResultInterface` (para HTML, JSON ou outros tipos de output).
+
+**Como os controladores interagem uns com os outros?**
+- Um `controller` pode encaminhar para outra rota. Não é exibida nenhuma alteração na URL, mas um novo `controller` assume o processamento da URL. Isso reinicia o loop de correspondência do _router_ com novos argumentos. Ver: `\Magento\Framework\Controller\Result\Forward`.
+- O `controller` pode redirecionar para outra URL. Ver: `\Magento\Framework\Controller\Result\Redirect`.
+
+**Como os diferentes tipos de resposta são gerados?**
+O Magento possui alguns tipos de resposta, todos implementam a interface `\Magento\Framework\Controller\ResultInterface`.
+Usamos estas classes de resposta da seguinte forma:
+1. Definimos qual o tipo a ser usado
+2. Injetamos a `Factory` da classe no nosso `controller`.
+3. Criamos uma instancia desta classe, definimos o que precisamos e à retornamos.
+
+Os tipos de resposta já existentes no Magento são:
+- `Magento\Framework\Controller\Result\Forward`
+- `Magento\Framework\Controller\Result\Json`
+- `Magento\Framework\Controller\Result\Raw`
+- `Magento\Framework\Controller\Result\Redirect`
+- `Magento\Framework\View\Result\Page`
 
 
 ## Demonstrar habilidade para personalizar rotas de requisição
