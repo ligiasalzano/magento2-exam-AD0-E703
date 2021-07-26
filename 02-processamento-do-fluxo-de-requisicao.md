@@ -82,7 +82,15 @@ Há um exemplo passo a passo [aqui](https://devdocs.magento.com/guides/v2.4/exte
 
 
 ### Descrever como é o processo de reescrita e sua função na criação de URL amigáveis.
+
+As URLs amigáves são apelidos para as URLs padrão do Magento. Ao invés de mostrar a url `htpps://loja.com/catalog/product/view/id/54`, o link para este produto será: `htpps://loja.com/meu-produto`. Essa reescrita pode ser feita automaticamente, se configurado.
+O Magento usa a tabela `url_rewrite` para armazenar e mapear as URLs no banco de dados.
+- `request_path`: "minha-url-amigavel"
+- `target_path`: "catalog/product/view/id/54"
+
 **Como as URLs amigáveis são definidas, e como elas são customizadas?**
+As URLs amigáveis vem do campo `url_key`, este atributo existe no cadastro de produtos, categorias e páginas cms.
+
 
 ### Descrever como funcionam as ações e resultados dos controllers. 
 **Como os controladores interagem uns com os outros? Como os diferentes tipos de resposta são gerados?**
