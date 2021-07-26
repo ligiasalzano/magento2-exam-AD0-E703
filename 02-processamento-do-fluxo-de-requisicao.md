@@ -51,3 +51,44 @@ Não é usado em API ou no _console_.
 
 
 
+## Demonstrar habilidade para processar URLs do Magento
+
+### Descrever como a Magento processa uma dada URL. 
+
+Há uma boa referência sobre o assunto no [DevDocs](https://devdocs.magento.com/guides/v2.4/extension-dev-guide/routing.html).
+
+**Como você identifica qual modulo e controller corresponde a uma certa URL?**
+
+O Magento determina a área baseado no frontname (que é registrado no `routes.xml`). Se não houver um frontname que corresponda à rota, o padrão é usar a área `frontend`.
+> `\Magento\Framework\App\AreaList::getCodeByFrontName`
+
+Se não for uma requisição de API, o Magento analisa a URL usando o `\Magento\Framework\App\Router\Base::parseRequest`. A parte explorada é o `path`, que corresponde ao seguimento após o domínio.
+
+A maior parte das URLs no magento podem ser divididas em 5 partes: `<store-url>/<front-name>/<controller-name>/<action-name>`
+1. Primeiro a url da loja `store-url`.
+2. Em seguida, o `frontname`. Exemplo: `catalog`.
+4. Depois, o nome do `controller`. E consideramos o caminho até a classe, a partir da pasta `Controller`. Exemplo: em `product`.
+5. Então o nome da classe da ação (`action-name`). Esta classe deve implementar a `ActionInterface` e possuir um método `exevute` 
+6. Por fim, vem os parâmetros. Exemplo: `id/54`.
+
+
+**O que é necessário para criar uma estrutura personalizada de URL?**
+1. Crie uma nova classe _router_, na pasta `Controller`, que implementa a interface `\Magento\Framework\App\RouterInterface`.
+2. Registre o _router_ no arquivo `di.xml`
+3. Crie uma Action, instancia de `\Magento\Framework\App\ActionInterface`
+4. Registre a rota da action no arquivo `routes.xml`
+
+Há um exemplo passo a passo [aqui](https://devdocs.magento.com/guides/v2.4/extension-dev-guide/routing.html#example-of-routing-usage).
+
+
+### Descrever como é o processo de reescrita e sua função na criação de URL amigáveis.
+**Como as URLs amigáveis são definidas, e como elas são customizadas?**
+
+### Descrever como funcionam as ações e resultados dos controllers. 
+**Como os controladores interagem uns com os outros? Como os diferentes tipos de resposta são gerados?**
+
+
+## Demonstrar habilidade para personalizar rotas de requisição
+## Descrever o processo de inicialização do layout
+## Descrever a estrutura dos `block templates`
+
