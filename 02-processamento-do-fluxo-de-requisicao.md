@@ -118,6 +118,46 @@ Os tipos de resposta já existentes no Magento são:
 
 
 ## Demonstrar habilidade para personalizar rotas de requisição
+
+
+### Descrever o roteamento e o fluxo da requisição na Magento. 
+
+**Quando é necessário criar um novo roteador ou customizar os roteadores existentes?**
+Quando temos grandes quantidades de personalizações de url ou situações que não são atendidas pela funcionalidade nativa do Magento.
+Um exemplo de situação para criar um _router_ personalizado seria para um módulo de blog.
+
+**Como você manipula páginas 404 customizadas?**
+A página 404 é uma página CMS armazenada no banco de dados. Pode ser modificada usando HTML/CSS ou o Page Builder (no caso de ser Adobe Commerce).
+Para modificações mais profundas, pode-se usar um `NoRouteHandler` na classe `\Magento\Framework\App\Router\NoRouteHandlerList`.
+
+Classes que implementam a `Magento\Framework\App\Router\NoRouteHandlerInterface`:
+- `Magento\Backend\App\Router\NoRouteHandler`
+- `Magento\Framework\App\Router\NoRouteHandler`
+
+
 ## Descrever o processo de inicialização do layout
+
+### Determinar como o layout é compilado. 
+**Como você depuraria seus arquivos de layout.xml e verificaria que foram usadas as instruções de layout corretas?**
+
+### Determinar como a saída HTML é renderizada. 
+**Como a Magento descarrega a saída e quais mecanismos existem para acessar e customizar a saída?**
+
+### Determinar o esquema de layout XML de um módulo. 
+**Como você adiciona novos elementos em uma página introduzida por um certo módulo?**
+
+### Demonstrar capacidade para usar o fallback do layout para personalizações e depuração.
+**Como você identifica exatamente qual arquivo de layout.xml é processado em um determinado escopo?**
+**Como a Magento trata arquivos de layout XML com os mesmos nomes em módulos diferentes?**
+
+### Identificar as diferenças entre os escopos admin e frontend. 
+**Quais as diferenças existentes na inicialização do layout para o escopo de admin?**
+
+
 ## Descrever a estrutura dos `block templates`
 
+### Identificar e entender os templates root, empty.xml, e page_layout. 
+**Como as estruturas da página são definidas, incluindo o número de colunas, quais containers básicos são apresentados, etc.?**
+
+### Descrever a função de blocos e templates no fluxo de requisição. 
+**Em quais situações você criaria um novo bloco ou um novo template?**
