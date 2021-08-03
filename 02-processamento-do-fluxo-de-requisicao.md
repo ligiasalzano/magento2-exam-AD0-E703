@@ -138,6 +138,34 @@ Classes que implementam a `Magento\Framework\App\Router\NoRouteHandlerInterface`
 ## Descrever o processo de inicialização do layout
 
 ### Determinar como o layout é compilado. 
+
+Todos os arquivos de layouts XML são mesclados em um XML que é armazenado no cache de layout. A sequência em que eles são carregados é determinada pelo nó `sequence` no `etc/module.xml`.
+
+Para uma página particular o seu layout é definido por 3 principais componentes: 
+
+**_Page layout_:**
+
+Define o `page wireframe`, a estrutura, por exemplo, _one-column_, _two-column_ etc. 
+São localizados em `<module_dir>/view/frontend/page_layout` ou `<theme_dir>/<Namespace>_<Module>/page_layout`. 
+Exemplo de arquivo: `view/frontend/page_layout/2columns-left.xml`. 
+Para utilizar um layout, ele precisa ser declarado no arquivo `layouts.xml`, que pode ser colocado em `<module_dir>/view/frontend/layouts.xml` ou `<theme_dir>/<Namespace>_<Module>/layouts.xml`
+
+> O Magento possui, nativamente, 5 tipos de layout de página para o `frontend` (empty, 1column, 2columns-left, 2columns-right e 3columns) e 3 tipos para o `backend` (admin-empty, admin-1column, and admin-2columns-left).
+
+
+**_Page configuration_**:
+
+Detalha o conteúdo do `wireframe` da página, blocos (header, footer, etc), `meta information` e conteúdos da seção `<head>`. 
+São localizados em `<module_dir>/view/frontend/layout` ou `<theme_dir>/<Namespace>_<Module>/layout`.
+
+**_Generic layout_**:
+
+Layouts genéricos que definem o conteúdo e a estrutura detalhada dentro da seção `<body>` da marcação da página HTML. 
+Também ficam em `<module_dir>/view/frontend/layout` ou `<theme_dir>/<Namespace>_<Module>/layout`.
+
+Para mais informações sobre os tipos de arquivos de layout, [clique aqui](https://devdocs.magento.com/guides/v2.4/frontend-dev-guide/layouts/layout-types.html).
+
+
 **Como você depuraria seus arquivos de layout.xml e verificaria que foram usadas as instruções de layout corretas?**
 
 ### Determinar como a saída HTML é renderizada. 
