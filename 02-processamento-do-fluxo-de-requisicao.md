@@ -168,18 +168,55 @@ Para mais informações sobre os tipos de arquivos de layout, [clique aqui](http
 
 **Como você depuraria seus arquivos de layout.xml e verificaria que foram usadas as instruções de layout corretas?**
 
+- Verifique se o seu layout XML está sendo processado. Isso pode ser feito com um breakpoint no `foreach` em `\Magento\Framework\View\Model\Layout\Merge::_loadFileLayoutUpdatesXml`.
+- Verifique se o seu XML está correto, podes-se usar um validador de XML para isso.
+- Usando o modo de desenvolvimento, verifique se algum erro é apresentado no `frontend`.
+- Verifique os `handles` carregados na página.
+- Verifique se o nome do XML está correto.
+- No caso de um bloco com uma classe própria, verifique se a classe existe e está sendo carregada.
+- Verifique se a saída HTML está sendo processada corretamente (método `toHtml`).
+
 ### Determinar como a saída HTML é renderizada. 
 **Como a Magento descarrega a saída e quais mecanismos existem para acessar e customizar a saída?**
+
+Layout rendering: `\Magento\Framework\View\Layout::getOutput()`.
+Block renderer: `\Magento\Framework\View\Element\AbstractBlock::toHtml()`
+
+Para customizar o `output`, você pode:
+
+- Modificar o arquivo layout XML
+- Sobrescrever templates phtml
+- Adicionar um `layout handle` em `\Magento\Framework\View\Result\Page`.
+- Sobrescrever o método `_toHtml` do bloco
+- Criar uma `result class` customizada (estendendo a classe `\Magento\Framework\View\Result\Page`) e a aplicando no `controller`.
+
 
 ### Determinar o esquema de layout XML de um módulo. 
 **Como você adiciona novos elementos em uma página introduzida por um certo módulo?**
 
+Isso pode ser feito através do XML layout da página. Para tanto, é necessario saber qual `handle` será utilizado. 
+Se não souber quais `handles` estão disponíveis, basta verificar o atributo classe da tag html `<body>` ou utiliar o método `\Magento\Framework\View\Layout\ProcessorInterface::getHandles()`. Com o handle em mãos, crie o xml com o mesmo nome.
+No arquivo, basta utilizar as instruções de layout para adicionar ou modificar elementos.
+
+
 ### Demonstrar capacidade para usar o fallback do layout para personalizações e depuração.
+
+> Uma forma prática de verificar o `fallback` é executar `$fallbackRule->getPatternDirs($params)` em `vendor/magento/framework/View/Design/FileResolution/Fallback/Resolver/Simple.php::resolveFile`
+
 **Como você identifica exatamente qual arquivo de layout.xml é processado em um determinado escopo?**
+
+- Verifique qual área está sendo carregada
+- Localize o `layout handle`
+- Busque no projeto arquivos com o mesmo nome
+
 **Como a Magento trata arquivos de layout XML com os mesmos nomes em módulos diferentes?**
+
+É utilizado o nó `sequence` para determinar a ordem dos arquivos que serão carregados.
 
 ### Identificar as diferenças entre os escopos admin e frontend. 
 **Quais as diferenças existentes na inicialização do layout para o escopo de admin?**
+
+Na área `adminhtml` o Magento ACL determina o que pode ou não pode ser exibido.
 
 
 ## Descrever a estrutura dos `block templates`
