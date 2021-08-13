@@ -221,8 +221,27 @@ Na área `adminhtml` o Magento ACL determina o que pode ou não pode ser exibido
 
 ## Descrever a estrutura dos `block templates`
 
+A estrutura de uma página é definida nos arquivos de layout, dentro do nó `page`. Os arquivos de layout possuem o nome de um `handle` da página.
+
 ### Identificar e entender os templates root, empty.xml, e page_layout. 
 **Como as estruturas da página são definidas, incluindo o número de colunas, quais containers básicos são apresentados, etc.?**
 
+O `root template` é o template mais simples. Temos apenas um no Magento: `vendor/magento/module-theme/view/base/templates/root.phtml`. Ele é injetado no `result page` do `controllers` através de `dependency injection`:
+- `vendor/magento/module-backend/etc/adminhtml/di.xml`
+- `vendor/magento/magento2-base/app/etc/di.xml`
+
+O `empty.xml` é o layout XML "pai". Todos os outros arquivos de layout de página derivam e estentem ele. 
+- `vendor/magento/module-theme/view/base/page_layout/empty.xml`
+
+No diretório `page_layout` são colocados os XMLs de layouts de página. Por exemplo, no Magento temos os layouts `1column.xml`, `2columns-left`, `2columns-right.xml` e `3columns.xml`. Pode-se criar um novo layout de página adicionando novos arquivos ao diretório `page_layout` dentro do módulo ou tema.
+- ` vendor/magento/module-theme/view/frontend/page_layout`
+
+> Configure o layout de uma página no atributo `layout=""` do nó `<page>` no arquivo XML.
+
 ### Descrever a função de blocos e templates no fluxo de requisição. 
 **Em quais situações você criaria um novo bloco ou um novo template?**
+
+- Um `view model` pode ser usado para fornecer dados para um template. Então, na maioria das vezes, não é necessário criar uma nova classe de bloco.
+- A classe padrão dos blocos é a `\Magento\Framework\View\Element\Template` e pode ser omitida.
+- Os `templates` são criados para mostrar informação. 
+
