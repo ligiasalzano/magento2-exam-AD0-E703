@@ -13,10 +13,32 @@ permalink: /personalizando-a-ui
 ## Demonstrar habilidade para usar temas e a estrutura de `templates`
 
 ### Demonstrar capacidade para customizar a UI da Magento usando temas. 
-**Quando você deveria criar um novo tema? Como você define a hierarquia do tema para seu projeto?**
+
+- Os temas são localizados em `app/design`.
+- Existem temas para o `frontend` e temas para o `adminhtml`
+- Para criar um tema, são necessários os arquivos `theme.xml` e `registration.php`
+- O arquivo `etc/view.xml` é requerido apenas se não houver um tema pai
+
+**Quando você deveria criar um novo tema?** 
+Um tema possui um conjunto de personalizações no design do Magento e é criado conforme a necessidade de ter estas personalizações. Geralmente estendemos um tema existente (em última instância, os temas estentem o tema Magento Branck, existente no core da aplicação).
+Trabalhamos no tema copiando e modificando templates existentes, criando XMLs para ajustar o layout e customizando o css (.less).
+
+**Como você define a hierarquia do tema para seu projeto?**
+O tema pai é especificado no nó `parent` dentro do arquivo `theme.xml`.
+
 
 ### Demonstrar a habilidade para customizar/depurar templates usando o processo de fallback do template. 
-**Como você identifica qual é o exato arquivo de tema usado em diferentes situações? Como você pode sobrepor arquivos nativos?**
+
+**Como você identifica qual é o exato arquivo de tema usado em diferentes situações?**
+- Podemos habilitar as dicas de template do Magento (`bin/magento dev:template-hints:enable`)
+- Pode-se buscar no projeto por alguma string do HTML (tradução, classe etc)
+- Os arquivos de template podem serm `.phtml`, `.html` ou `.xhtml`
+
+**Como você pode sobrepor arquivos nativos?**
+- Encontre o template que quer sobrescrever
+- Dentro do seu tema, crie uma pasta para o módulo ao qual o arquivo pertence. O formato é `Vendor_Module`
+- Dentro deste diretório, copie o arquivo e o caminho para ele a partir da pasta `view/frontend`
+- Obs: Se o arquivo estiver dentro de outro tema, que você está estendendo, então o arquivo e a estrutura de pastas dele
 
 
 ## Descrever como usar os blocos
