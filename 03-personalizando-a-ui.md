@@ -19,6 +19,8 @@ permalink: /personalizando-a-ui
 - Para criar um tema, são necessários os arquivos `theme.xml` e `registration.php`
 - O arquivo `etc/view.xml` é requerido apenas se não houver um tema pai
 
+Leia mais sobre a estrutura de temas do Magento [aqui](https://devdocs.magento.com/guides/v2.4/frontend-dev-guide/themes/theme-structure.html).
+
 **Quando você deveria criar um novo tema?** 
 Um tema possui um conjunto de personalizações no design do Magento e é criado conforme a necessidade de ter estas personalizações. Geralmente estendemos um tema existente (em última instância, os temas estentem o tema Magento Branck, existente no core da aplicação).
 Trabalhamos no tema copiando e modificando templates existentes, criando XMLs para ajustar o layout e customizando o css (.less).
@@ -44,10 +46,38 @@ O tema pai é especificado no nó `parent` dentro do arquivo `theme.xml`.
 ## Descrever como usar os blocos
 
 ### Demonstrar compreensão na arquitetura de blocos e seu uso no desenvolvimento.
+
 **Quais objetos são acessíveis a partir do bloco? Qual é o papel característico de um bloco?**
+Os blocos são classes PHP que fornecem informações para os templates `.phtml`. Eles ficam dentro do diretório `Block`, dentro do módulo.
+A classe padrão dos blocos é a `Magento\Framework\View\Element\Template`.
+
+> Nunca use `ObjectManager` em arquivos de template!
+
 
 ### Identificar as etapas no ciclo de vida de um bloco.
-**Em que casos você colocaria seu código nos métodos `_prepareLayout()`, `_beforeToHtml()` e `_toHtml()`? Como você usaria os eventos disparados no bloco abstrato?**
+
+**Em que casos você colocaria seu código nos métodos `_prepareLayout()`, `_beforeToHtml()` e `_toHtml()`?**
+
+> O bloco abstrato é encontrado em: vendor/magento/framework/View/Element/AbstractBlock.php
+
+Etapas:
+- criação do bloco (`__construct`)
+- método `setLayout`
+- Quando estiver pronto para obter o HTML:
+  - é chamado o `toHtml`
+  - é disparado o evento `view_block_abstract_to_html_before`
+  - se houver um cache, o template não é carregado
+  - `_beforeToHtml`
+  - `_toHtml`
+  - `_afterToHtml` (independete do cache)
+  - é disparado o evento `view_block_abstract_to_html_after`
+- O HTML é retornado
+
+> Os plugins só podem modificar o fluxo de dados de métodos públicos. O melhor ponto para colocar um plugin é no método `toHtml`.
+
+**Como você usaria os eventos disparados no bloco abstrato?**
+Anteriormente, usava-se para modificar o fluxo de dados, porém as diretrizes do Magento recomendam usar plugins para isso.
+Portanto, casos de uso destes eventos são limitados.
 
 ### Descrever como os blocos são renderizados e cacheados
 
