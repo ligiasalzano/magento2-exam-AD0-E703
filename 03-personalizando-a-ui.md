@@ -103,9 +103,32 @@ Existem vários tipos de blocos que estendem o tipo básico de templade de bloco
 ### Descrever os elementos do esquema de layout XML da Magento, incluindo as principais diretivas XML. 
 **Como você usa as diretivas XML em suas customizações?**
 
+O DevDocs possui um guia sobre o uso do layout XML e pode ser consultado [aqui](https://devdocs.magento.com/guides/v2.4/frontend-dev-guide/layouts/layout-overview.html).
+
+Principais instruções de layout:
+- `<block />`: cria um novo bloco, uma unidade que renderiza algum conteúdo distinto. A classe padrão de um bloco é a `Magento\Framework\View\Element\Template`. É recomendado sempre usar o atributo `name`, caso contrario será definido de forma aleatória.
+- `<container />`: agrupa vários blocos e especifica a tag HTML e a classe que vai envelopar os blocos filhos. Também é recomendado usar `name`.
+- `<arguments>` e `<argument>`: define um valor para o array `$data` do bloco.
+- `<referenceBlock/>`: referencia um bloco existente para modificá-lo.
+- `<referenceContainer/>`: referencia um container existente para modificá-lo.
+- `<move/>`: permite mover um bloco entre containers.
+- `<remove/>`: remove um bloco
+- `<update/>`: adiciona um layout handle.
+
+
 ### Descrever como criar um novo arquivo de layout XML
 
+Dentro do diretório `layout`, crie um arquivo .xml com o nome do `handle` que deve ser modificado. Por exemplo: `cms_index_index.xml`.
+Crie o nó `<page>` e, dentro dele, as demais instruções do XML.
+
+[Neste link](https://devdocs.magento.com/guides/v2.4/frontend-dev-guide/layouts/xml-manage.html), temos instruções sobre como realizar algumas tarefas comuns de customização de layout.
+
 ### Descrever como transpor variáveis do layout para o bloco
+
+Isto pode ser feito através dos nós `<arguments>` e `<argument>`. Eles chamam o método `setData` no bloco.
+E, dessa forma, pode-se recuperar esses valores posteriormente através do método `getData()`.
+
+> Os nós `<arguments>` e `<argument>` também são usados para definir os `ViewModels`.
 
 ## Uso do JavaScript na Magento
 
