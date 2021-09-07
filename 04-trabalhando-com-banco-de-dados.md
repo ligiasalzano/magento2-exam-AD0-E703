@@ -84,6 +84,44 @@ public function getProducts()
 ### Descrever como criar e registrar novas entidades
 Como você adiciona uma nova tabela ao banco de dados?
 
+Podemos adicionar uma nova tabela ao banco de dados de duas formas: usando o `declarative schemal` (preferencialmente, a partir da versão 2.3 do Magento) ou usando a forma antiga, com as classes `Setup/InstallSchema` e `Setup/UpgradeSchema` (versões do Magento anteriores à 2.3).
+
+#### Usando o `declarative schema`
+
+O arquivo de configuração é criado em: `<Module_Vendor>/<Module_Name>/etc/db_schema.xml`. Nele declaramos a estrutura do banco de dados do módulo.
+
+Exemplo:
+```xml
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="declarative_table">
+        <column xsi:type="int" name="id_column" padding="10" unsigned="true" nullable="false" comment="Entity Id"/>
+        <column xsi:type="int" name="severity" padding="10" unsigned="true" nullable="false" comment="Severity code"/>
+        <column xsi:type="varchar" name="title" nullable="false" length="255" comment="Title"/>
+        <column xsi:type="timestamp" name="time_occurred" padding="10" comment="Time of event"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id_column"/>
+        </constraint>
+    </table>
+</schema>
+```
+
+Após criar o arquivo `db_schema.xml`, deve-se gerar o `schema whitelist` do módulo: `bin/magento setup:db-declaration:generate-whitelist [options]`. 
+`[options]` pode ser: `--module-name[=MODULE-NAME]` ou `--module-name=all`.
+
+> Você pode obter mais informações sobre o uso do `declarative schemas` em [**configure declarative schema**](https://devdocs.magento.com/guides/v2.4/extension-dev-guide/declarative-schema/db-schema.html) e sobre o `schema whitelist` em [**create a schema whitelist**](https://devdocs.magento.com/guides/v2.4/extension-dev-guide/declarative-schema/migration-commands.html#create-whitelist).
+
+
+#### Usando os scripts PHP (a forma antiga)
+
+- InstallData e InstallSchema são executados uma vez apenas, quando o módulo é instalado.
+- UpgradeData e UpgradeSchema são executados quando a versão do módulo é alterada.
+- Estas classes são criadas dentro do diretório `Setup` do módulo.
+
+Neste [artigo do Mageplaza](https://www.mageplaza.com/magento-2-module-development/magento-2-how-to-create-sql-setup-script.html) você pode encontrar um tutorial sobre como usar estes scripts.
+
+> Leia mais em [Migrate install/upgrade scripts to declarative schema](https://devdocs.magento.com/guides/v2.4/extension-dev-guide/declarative-schema/migration-commands.html).
+
 
 ### Descrever como ocorre a leitura e gravação de uma entidade
 
