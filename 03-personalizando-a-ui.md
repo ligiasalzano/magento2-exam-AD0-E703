@@ -135,6 +135,14 @@ E, dessa forma, pode-se recuperar esses valores posteriormente através do méto
 ### Descrever diferentes tipos e usos de módulos JavaScript
 **Quais módulos JavaScript são adequados para cada tarefa?**
 
+O Magento usa o RequireJS, criando um sistema modular e estensível.
+Módulos JS podem estender um UI Component, ser customizados ou ser um jQuery widget. Também podem ser carregados ou embedados diretamente na página usando uma tag `<script>`. A tag `<script type="text/x-magento-init">` permite passar um JSON de configuração que carrega e inicializa o módulo com configurações geradas pelo lado do servidor.
+
+Usar JavaScript and UI Components para fazer a interação entre o website e a aplicação PHP, como carregar dados específicos do cliente, permite que o Magento mantenha uma página totalmente em cache. É possível deixar a página toda cacheada e carregar informações específicas usando uma requisição AJAX.
+E para demandas pontuais de manipulação de DOM, pode-se usar um módulo que cria um widget jQuery.
+
+Já o atributo `data-mage-init` inicializa o módulo Javascript com a configuração fornecida pela tag. Pode ser usado para alterações pontuais.
+
 ### Descrever os UI components
 **Em qual situação você deveria usar o UiComponent versus um módulo JavaScript comum?**
 
