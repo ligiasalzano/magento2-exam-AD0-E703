@@ -19,14 +19,19 @@ Como você adiciona uma nova tabela ao banco de dados?
 
 ### Descrever como ocorre a leitura e gravação de uma entidade
 
-### Descrever como estender entidades existentes. 
+### Descrever como estender entidades existentes
 Quais mecanismos estão disponíveis para estender as classes existentes, por exemplo, adicionando um novo atributo, um novo campo no banco de dados ou uma nova entidade relacionada?
 
-### Descrever como filtrar, ordenar e especificar os valores retornados nas collections e repositories. 
+### Descrever como filtrar, ordenar e especificar os valores retornados nas collections e repositories
 Como você seleciona um subconjunto de registros do banco de dados?
 
-### Descreva a camada de abstração do banco de dados da Magento. 
+### Descreva a camada de abstração do banco de dados da Magento
 Que tipo de exceções são geradas pela camada de banco de dados?
 Que funcionalidade adicional a Magento oferece sobre o Zend_Adapter?
 
 ## Demonstrar habilidade para usar o esquema declarativo (`declarative schema`)
+
+### Demonstrar o uso do esquema
+Como manipular colunas e índices usando o declarative schema? 
+Qual o propósito da whitelisting? 
+Como usar os patches de dados e esquema? Como gerenciar as dependências entre os arquivos de patch?
