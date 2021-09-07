@@ -86,9 +86,17 @@ Isso envolve o carregamento do template (se um template estiver sendo usado) e, 
 Um bloco é cacheado quando o tipo de cache `block_html` está habilitado e o `cache lifetime` não é `null`. Por padrão o `lifetime` não é definido.
 Quando há cache, uma chave é gerada (`$this->getCacheKey()`). Parâmetros SID (IDs de sessão) são buscados no HTML e substituídos por marcadores antes da string ser salva.
 
-
 ### Identificar o uso de diferentes tipos de blocos
 **Quando você usaria os tipos de bloco "sem template"? Em que situação você deve usar um bloco de template ou outros tipos de bloco?**
+
+Tipos de blocos sem template:
+- `Template`: Renderiza o HTML para o usuário - `vendor/magento/framework/View/Element/Template.php`.
+- `Text`: Imprime uma string - `vendor/magento/framework/View/Element/Text.php`.
+- `ListText`: Retorna o `output` de cada bloco filho, semelhante à um `container` - `vendor/magento/framework/View/Element/Text/ListText.php`.
+
+Os casos de uso de blocos sem template são poucos. O bloco do tipo `Text` pode ser usado para mostrar uma string que foi definida pelo layout XML.
+
+Existem vários tipos de blocos que estendem o tipo básico de templade de bloco. No diretório `vendor/magento/framework/View/Element` podemos encontrar alguns.
 
 ## Demonstrar habilidade de usar layout e `XML schema`
 
