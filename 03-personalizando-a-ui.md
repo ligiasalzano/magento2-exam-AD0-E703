@@ -80,6 +80,12 @@ Anteriormente, usava-se para modificar o fluxo de dados, porém as diretrizes do
 Portanto, casos de uso destes eventos são limitados.
 
 ### Descrever como os blocos são renderizados e cacheados
+O método `toHtml` é responsável por renderizar o bloco como HTML. 
+Isso envolve o carregamento do template (se um template estiver sendo usado) e, se existe um chache, ele é retornado.
+
+Um bloco é cacheado quando o tipo de cache `block_html` está habilitado e o `cache lifetime` não é `null`. Por padrão o `lifetime` não é definido.
+Quando há cache, uma chave é gerada (`$this->getCacheKey()`). Parâmetros SID (IDs de sessão) são buscados no HTML e substituídos por marcadores antes da string ser salva.
+
 
 ### Identificar o uso de diferentes tipos de blocos
 **Quando você usaria os tipos de bloco "sem template"? Em que situação você deve usar um bloco de template ou outros tipos de bloco?**
