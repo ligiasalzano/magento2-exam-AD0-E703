@@ -146,4 +146,45 @@ Já o atributo `data-mage-init` inicializa o módulo Javascript com a configura�
 ### Descrever os UI components
 **Em qual situação você deveria usar o UiComponent versus um módulo JavaScript comum?**
 
+O uso de UI Components tem o propósito de criar um sistema modular e reutilizável para renderizar o layout nas áreas de front-end e adminhtml. 
+Um novo componente pode ser criado e reutilizado quantas vezes forem necessárias.
+
 ### Descrever o uso do `requirejs-config.js`, `x-magento-init` e `data-mage-init` 
+
+**`requirejs-config.js`:**
+O RequireJS melhora os tempos de carregamento da página porque permite que o JavaScript seja carregado em segundo plano. Isto é, ele permite o carregamento assíncrono de JavaScript.
+As configurações do RequireJS são feitas no arquivo `requirejs-config.js`. Nele podemos carregar arquivos e módulos JS e criar `aliases` para caminhos de módulos, por exemplo. No [DevDocs](https://devdocs.magento.com/guides/v2.4/javascript-dev-guide/javascript/requirejs.html#requirejs-config) a estrutura deste arquivo é descrita.
+
+**`x-magento-init`:**
+O `x-magento-init` é usado para inicializar um módulo JavaScript com parâmetros específicos.
+
+Exemplo:
+```html
+ <div id="<carousel_name>" class="carousel">
+     <div class="item">Item 1</div>
+     ...
+     <div class="item">Item n</div>
+ </div>
+
+ <script type="text/x-magento-init">
+     {
+         "#<carousel_name>": {
+             "carousel": {"option": value}
+         }
+     }
+ </script>
+```
+
+**`data-mage-init`:**
+É similar ao `x-magento-init`, só que usado como uma tag HTML.
+
+Exemplo (mesma funcionalidade do exemplo acima):
+```html
+  <div data-mage-init='{"carousel":{"option": value}}'>
+     <div class="item">Item 1</div>
+     ...
+     <div class="item">Item n</div>
+ </div>
+```
+
+Para mais exemplos, acesse [Calling and initializing JavaScript](https://devdocs.magento.com/guides/v2.4/javascript-dev-guide/javascript/js_init.html).
