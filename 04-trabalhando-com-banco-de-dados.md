@@ -123,6 +123,9 @@ Neste [artigo do Mageplaza](https://www.mageplaza.com/magento-2-module-developme
 
 > Leia mais em [Migrate install/upgrade scripts to declarative schema](https://devdocs.magento.com/guides/v2.4/extension-dev-guide/declarative-schema/migration-commands.html).
 
+#### [Schema/Data Patches](https://devdocs.magento.com/guides/v2.4/extension-dev-guide/declarative-schema/data-patches.html)
+
+Dentro de `Setup/Data` podemos criar classes que irão modificar dados (data patch) ou tabelas (schema patch).
 
 ### Descrever como ocorre a leitura e gravação de uma entidade
 
@@ -134,9 +137,18 @@ As `Collections` fazem parte do `ResourceModel` e são colocadas dentro do mesmo
 
 O `Model` é a classe que vai fazer a relação de 1 pra 1 na nossa tabela, cada linha da tabela corresponde à um `Model`. Todo `Model` estende a classe `Magento\Framework\Model\AbstractModel`. Ele também possui o `_constructor` com o método `_init`, que recebe o `ResourceModel`.
 
+A classe `Magento\Framework\Model\ResourceModel\Db\AbstractDb`, do `ResourceModel`, contém a funcionalidade que é usada para carregar e salvar dados no banco de dados. Além dos métodos `load` e `save` existem os métodos `beforeLoad` e `beforeSave`, chamados no início do processo, que são bons pontos para plugins.
+
 
 ### Descrever como estender entidades existentes
-Quais mecanismos estão disponíveis para estender as classes existentes, por exemplo, adicionando um novo atributo, um novo campo no banco de dados ou uma nova entidade relacionada?
+**Quais mecanismos estão disponíveis para estender as classes existentes, por exemplo, adicionando um novo atributo, um novo campo no banco de dados ou uma nova entidade relacionada?**
+
+**Extension Attributes**
+
+
+
+[EAV and extension attributes](https://devdocs.magento.com/guides/v2.4/extension-dev-guide/attributes.html)
+[Adding extension attributes to entity](https://devdocs.magento.com/guides/v2.4/extension-dev-guide/extension_attributes/adding-attributes.html?itm_source=devdocs&itm_medium=search_page&itm_campaign=federated_search&itm_term=EntityManager)
 
 ### Descrever como filtrar, ordenar e especificar os valores retornados nas collections e repositories
 Como você seleciona um subconjunto de registros do banco de dados?
