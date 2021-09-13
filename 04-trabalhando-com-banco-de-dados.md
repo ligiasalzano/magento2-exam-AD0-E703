@@ -27,7 +27,7 @@ Para obter um objeto do banco de dados, usamos o método `getById`. E, para pega
 
 As `interfaces` são armazenadas no diretório `Api` do módulo. Classes relacionadas diretamente aos dados armazenados no banco são colocadas no diretório `Api/Data`.
 Usamos a classe `SearchCriteria` através de sua interface, a `Magento\Framework\Api\SearchCriteriaInterface`.
-Para construir a requisisão, usamos a classe `Magento\Framework\Api\SearchCriteriaBuilder` injetando-a no construtor: 
+Para construir a requisição, usamos a classe `Magento\Framework\Api\SearchCriteriaBuilder` injetando-a no construtor: 
 
 ```php
 use Magento\Framework\Api\SearchCriteriaBuilder;
@@ -111,6 +111,7 @@ Após criar o arquivo `db_schema.xml`, deve-se gerar o `schema whitelist` do mó
 
 > Você pode obter mais informações sobre o uso do `declarative schemas` em [**configure declarative schema**](https://devdocs.magento.com/guides/v2.4/extension-dev-guide/declarative-schema/db-schema.html) e sobre o `schema whitelist` em [**create a schema whitelist**](https://devdocs.magento.com/guides/v2.4/extension-dev-guide/declarative-schema/migration-commands.html#create-whitelist).
 
+> Para uma coluna ser removida, é necessário que ela esteja listada em etc/db_schema_whitelist.json
 
 #### Usando os scripts PHP (a forma antiga)
 
@@ -124,6 +125,15 @@ Neste [artigo do Mageplaza](https://www.mageplaza.com/magento-2-module-developme
 
 
 ### Descrever como ocorre a leitura e gravação de uma entidade
+
+Para fazer a leitura e gravação de dados precisamos de três classes: **Resource Model**, **Collection** e **Model**.
+
+O `ResouceModel` faz a conexão com o banco de dados. Todo `ResouceModel` estende a classe `Magento\Framework\Model\ResourceModel\Db\AbstractDb` e possui um construtor `_construct` que possui um método `init`. Neste método é passado o nome da tabela e o id primário dela.
+
+As `Collections` fazem parte do `ResourceModel` e são colocadas dentro do mesmo diretório, geralmente. Toda `Collection` estende a classe `Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection`. Ela também possui um `_construct` que chama o método `init` que, por sua vez, recebe as classes `Model` e `ResourceModel`.
+
+O `Model` é a classe que vai fazer a relação de 1 pra 1 na nossa tabela, cada linha da tabela corresponde à um `Model`. Todo `Model` estende a classe `Magento\Framework\Model\AbstractModel`. Ele também possui o `_constructor` com o método `_init`, que recebe o `ResourceModel`.
+
 
 ### Descrever como estender entidades existentes
 Quais mecanismos estão disponíveis para estender as classes existentes, por exemplo, adicionando um novo atributo, um novo campo no banco de dados ou uma nova entidade relacionada?
