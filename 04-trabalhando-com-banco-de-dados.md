@@ -143,10 +143,30 @@ A classe `Magento\Framework\Model\ResourceModel\Db\AbstractDb`, do `ResourceMode
 ### Descrever como estender entidades existentes
 **Quais mecanismos estão disponíveis para estender as classes existentes, por exemplo, adicionando um novo atributo, um novo campo no banco de dados ou uma nova entidade relacionada?**
 
+- Substituir a classe por outra classe que estende a classe original, usando o `preference` no `di.xml` (pode gerar consequências negativas, não recomendado).
+- Criar uma nova classe que se relaciona com a classe original
+- Usar `extension attributes` (forma preferencial)
+
 **Extension Attributes**
+`Extension atrributes` funcionam com qualquer classe que estenda a classe `\Magento\Framework\Model\AbstractExtensibleModel`.
+O método `getExtensionAttributes` retorna uma interface auto-gerada que contém dos `getters` e `setters`, no formato `Camel cased`, para os códigos dos atributos especificados no arquivo `extension_attributes.xml`.
+
+> Nós podemos usar o ACL no `extension attributes`, assim um recurso adicionado só estará disponível na API caso o usuário possuir permissão
+
+**Tornando uma entidade estensível**
+- Mude o `model` para estender a classe `\Magento\Framework\Model\AbstractExtensibleModel`.
+- Adicione dois métodos ao contrato de serviço da entidade (interface) e seu `model`: `getExtensionAttributes()` e o `setExtensionAttributes($attributes)`.
+- O retorno do `getter` e o argumento do `setter` são classes auto-geradas pelo Magento.
+
+**Adicionando um `extension attribute`**
+- Crie o atributo em `etc/extension_attribute.xml`, dentro do seu módulo.
+- O código do atributo é definido no nó `attribute`, neste nó pode-se incluir a interface com o parâmetro `type`.
+- Na interface, adicione os `getters` e `setters` (se for criada uma interface)
+- Crie a classe concreta para a interface e vincule-as através do `di.xml`.
+- Crie plugins para os métodos `afterSave`, `afterGet` e `afterGetList` (os três no repositório da entidade).
 
 
-
+**Links úteis**
 [EAV and extension attributes](https://devdocs.magento.com/guides/v2.4/extension-dev-guide/attributes.html)
 [Adding extension attributes to entity](https://devdocs.magento.com/guides/v2.4/extension-dev-guide/extension_attributes/adding-attributes.html?itm_source=devdocs&itm_medium=search_page&itm_campaign=federated_search&itm_term=EntityManager)
 
