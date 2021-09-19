@@ -167,8 +167,8 @@ O método `getExtensionAttributes` retorna uma interface auto-gerada que contém
 
 
 **Links úteis**
-[EAV and extension attributes](https://devdocs.magento.com/guides/v2.4/extension-dev-guide/attributes.html)
-[Adding extension attributes to entity](https://devdocs.magento.com/guides/v2.4/extension-dev-guide/extension_attributes/adding-attributes.html?itm_source=devdocs&itm_medium=search_page&itm_campaign=federated_search&itm_term=EntityManager)
+- [EAV and extension attributes](https://devdocs.magento.com/guides/v2.4/extension-dev-guide/attributes.html)
+- [Adding extension attributes to entity](https://devdocs.magento.com/guides/v2.4/extension-dev-guide/extension_attributes/adding-attributes.html?itm_source=devdocs&itm_medium=search_page&itm_campaign=federated_search&itm_term=EntityManager)
 
 ### Descrever como filtrar, ordenar e especificar os valores retornados nas collections e repositories
 Como você seleciona um subconjunto de registros do banco de dados?
