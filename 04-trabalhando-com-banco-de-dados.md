@@ -171,11 +171,31 @@ O método `getExtensionAttributes` retorna uma interface auto-gerada que contém
 - [Adding extension attributes to entity](https://devdocs.magento.com/guides/v2.4/extension-dev-guide/extension_attributes/adding-attributes.html?itm_source=devdocs&itm_medium=search_page&itm_campaign=federated_search&itm_term=EntityManager)
 
 ### Descrever como filtrar, ordenar e especificar os valores retornados nas collections e repositories
-Como você seleciona um subconjunto de registros do banco de dados?
+**Como você seleciona um subconjunto de registros do banco de dados?**
+
+**Collections**
+- Filtrar: `$collection->addFieldToFilter()`
+- Ordenar: `$collection->addOrder()`
+- Escolher coluna: `$collection->addFieldToSelect()`
+- Paginação: `$collection->setPageSize()` e `$collection->setCurPage()`
+
+**Repositories**
+Leia sobre no [DevDocs](https://devdocs.magento.com/guides/v2.4/extension-dev-guide/searching-with-repositories.html).
+
 
 ### Descreva a camada de abstração do banco de dados da Magento
-Que tipo de exceções são geradas pela camada de banco de dados?
-Que funcionalidade adicional a Magento oferece sobre o Zend_Adapter?
+
+Veja a classe [`\Magento\Framework\Model\ResourceModel\Db\AbstractDb`](https://github.com/magento/magento2/blob/2.4-develop/lib/internal/Magento/Framework/Model/ResourceModel/Db/AbstractDb.php).
+
+**Que tipo de exceções são geradas pela camada de banco de dados?**
+- “Empty identifier field name”: quando o ID Field Name não é definido.
+- “Empty main table name”: quando não especifica o nome da tabela principal.
+- “Unique constraint violation found”: quando se tenta inserir uma linha com uma chave primária que já existe.
+
+
+**Que funcionalidade adicional a Magento oferece sobre o Zend_Adapter?**
+O `resource model` fornece métodos que podem retornar e salvar linhas do banco de dados.
+A classe do Zend que faz a adptação do MySql é a `vendor/magento/zendframework1/library/Zend/Db/Adapter/Mysqli.php`.
 
 ## Demonstrar habilidade para usar o esquema declarativo (`declarative schema`)
 
