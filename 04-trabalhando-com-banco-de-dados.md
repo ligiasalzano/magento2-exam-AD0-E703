@@ -200,6 +200,11 @@ A classe do Zend que faz a adptação do MySql é a `vendor/magento/zendframewor
 ## Demonstrar habilidade para usar o esquema declarativo (`declarative schema`)
 
 ### Demonstrar o uso do esquema
+
+Com o `declarative schema` conseguimos manipular a estutura do banco de dados através de arquivos XML. Esta abordagem substitui os scripts _install/upgrade_.
+O arquivo de configuração do `declarative schema` é o `etc/db_schema.xml` e seu XSD fica em `vendor/magento/framework/Setup/Declaration/Schema/etc/schema.xsd`.
+
+
 Como manipular colunas e índices usando o declarative schema? 
 Qual o propósito da whitelisting? 
 Como usar os patches de dados e esquema? Como gerenciar as dependências entre os arquivos de patch?
